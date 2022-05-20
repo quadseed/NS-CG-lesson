@@ -32,9 +32,10 @@
     </div>
     <br>
     <div>
-      Background: <input type="color" id="bg-color" value="#000000">
+      Background: <input type="color" id="bg-color" value="#000000"><br>
+      <br>
       <div>
-        <label><input type="checkbox" id="camera_movement" value="camera_movement">Camera Movement</label>
+        <label><input type="checkbox" id="camera-movement" value="camera-movement">Camera Movement</label>
       </div>
       <div id="camera_coordinates"></div>
     </div>
@@ -135,7 +136,7 @@
       torusKnot.material.color.setStyle(document.getElementById("torus-knot").value);
 
       // Camera Movement controller
-      if (document.getElementById("camera_movement").checked) {
+      if (document.getElementById("camera-movement").checked) {
         
         rot += 0.1;
   
