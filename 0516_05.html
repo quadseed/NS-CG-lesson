@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>第5回演習課題</title>
+
+  <!-- three.jsを読み込む(CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+
+</head>
+<body>
+  <div>
+    <h3>第5回演習課題</h3>
+    学籍番号: 2032067
+  </div>
+  
+  <div id="renderspace">
+  </div>
+
+  <div id="settings">
+    <div>
+      ・Lighting Control<br>
+      Light1: <input type="color" id="light1" value="#ffff00"><br>
+      Light2: <input type="color" id="light2" value="#ff00ff"><br>
+      Light3: <input type="color" id="light3" value="#00ffff"><br>
+    </div>
+    <p>
+      <label><input type="checkbox" id="camera_movement" value="camera_movement">Camera Movement</label>
+    </p>
+  
+    <div id="camera_coordinates"></div>
+  </div>
+ <script>
+
+   const init = () => {
+  
+   const width = 800;
+   const height = 600;
+
+   let light1 = 0xffff00;
+   let light2 = 0xff00ff;
+   let light3 = 0x00ffff;
+
+   let rot = 0;
+
+   let cameraMovement = false;
+  
+    // レンダラーを作成
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);
+
+    const renderDiv = document.getElementById("renderspace");
+    renderDiv.appendChild(renderer.domElement);
+  
+    // シーンを作成
+    const scene = new THREE.Scene();
+
+    // カメラを作成
+    const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+    camera.position.set(25, 25, 125);  //位置を指定
+    camera.lookAt(0, 0, 0); //見つめる方向
+
+    
+    // 平行光源
+    const directionalLight1 = new THREE.DirectionalLight(0xffff00);
+    directionalLight1.position.set(500, 0, 0);   //位置を指定
+    scene.add(directionalLight1);     // シーンに追加
+
+    const directionalLight2 = new THREE.DirectionalLight(0xff00ff);
+    directionalLight2.position.set(0, 1000, 0);   //位置を指定
+    scene.add(directionalLight2);     // シーンに追加
+
+    const directionalLight3 = new THREE.DirectionalLight(0x00ffff);
+    directionalLight3.position.set(0, 0, 500);   //位置を指定
+    scene.add(directionalLight3);     // シーンに追加
+      
+    // helper
+    const gridHelper = new THREE.GridHelper(100, 10); // size, step
+    scene.add(gridHelper);
+    const axisHelper = new THREE.AxisHelper(100); //軸の長さ　X：赤、Y：緑、z：青
+    scene.add(axisHelper);
+
+    // 箱を作成
+    const geometry = new THREE.BoxGeometry(10, 10, 10);
+    const material = new THREE.MeshPhongMaterial({ color: 0x0000ff, wireframe: false });
+    const box = new THREE.Mesh(geometry, material);
+    box.position.set(10, 20, 0); //位置を指定
+    scene.add(box);   // シーンに追加
+
+    const coneGeometory = new THREE.ConeGeometry(5, 8, 10);
+    const coneMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: true});
+    const cone = new THREE.Mesh(coneGeometory, coneMaterial);
+    cone.position.set(40, 25, 15);
+    scene.add(cone);
+
+
+    const torusKnotGeometry = new THREE.TorusKnotGeometry( 10, 2.5, 30, 10, 13, 9);
+    const material1 = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+    const torusKnot = new THREE.Mesh( torusKnotGeometry, material1 );
+    scene.add(torusKnot);
+
+    const colorFormatter = (text) => {
+      let color = text.replace("#", "0x");
+      return (color);
+    }
+  
+    // 初回実行
+    const update = () => {
+      requestAnimationFrame(update);
+  
+      // 箱を回転させる
+      box.rotation.x += 0.01;
+      box.rotation.y += 0.01;
+
+      torusKnot.rotation.x += 0.02;
+      torusKnot.rotation.y += 0.04;
+
+      cone.rotation.x += -0.01;
+      cone.rotation.y += 0.05;
+      cone.rotation.z += -0.03;
+
+      //Lighting controller
+
+      directionalLight1.color.setHex(colorFormatter(document.getElementById("light1").value));
+      directionalLight2.color.setHex(colorFormatter(document.getElementById("light2").value));
+      directionalLight3.color.setHex(colorFormatter(document.getElementById("light3").value));
+
+      // Camera Movement controller
+      if (document.getElementById("camera_movement").checked) {
+        
+        rot += 0.1;
+  
+        const radian = (rot * Math.PI) / 180;
+  
+        camera.position.x = 100 * Math.sin(radian);
+        camera.position.z = 30 * Math.cos(radian);
+        camera.lookAt(0, 0, 0);
+    
+      }
+
+      let coordinatesSpace = document.getElementById("camera_coordinates");
+      coordinatesSpace.innerHTML = `Camera Coordinates: ${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)}`;
+
+      renderer.render(scene, camera);
+    };
+    update();
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
