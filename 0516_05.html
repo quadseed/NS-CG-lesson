@@ -13,7 +13,7 @@
     <h3>第5回演習課題</h3>
     学籍番号: 2032067
   </div>
-  
+
   <div id="renderspace">
   </div>
 
@@ -24,11 +24,14 @@
       Light2: <input type="color" id="light2" value="#ff00ff"><br>
       Light3: <input type="color" id="light3" value="#00ffff"><br>
     </div>
-    <p>
-      <label><input type="checkbox" id="camera_movement" value="camera_movement">Camera Movement</label>
-    </p>
-  
-    <div id="camera_coordinates"></div>
+    <div>
+      Background: <input type="color" id="bg-color" value="#000000">
+      <p>
+        <label><input type="checkbox" id="camera_movement" value="camera_movement">Camera Movement</label>
+      </p>
+    
+      <div id="camera_coordinates"></div>
+    </div>
   </div>
  <script>
 
@@ -36,10 +39,6 @@
   
    const width = 800;
    const height = 600;
-
-   let light1 = 0xffff00;
-   let light2 = 0xff00ff;
-   let light3 = 0x00ffff;
 
    let rot = 0;
 
@@ -63,15 +62,15 @@
     
     // 平行光源
     const directionalLight1 = new THREE.DirectionalLight(0xffff00);
-    directionalLight1.position.set(500, 0, 0);   //位置を指定
+    directionalLight1.position.set(100, 0, 0);   //位置を指定
     scene.add(directionalLight1);     // シーンに追加
 
     const directionalLight2 = new THREE.DirectionalLight(0xff00ff);
-    directionalLight2.position.set(0, 1000, 0);   //位置を指定
+    directionalLight2.position.set(0, 100, 0);   //位置を指定
     scene.add(directionalLight2);     // シーンに追加
 
     const directionalLight3 = new THREE.DirectionalLight(0x00ffff);
-    directionalLight3.position.set(0, 0, 500);   //位置を指定
+    directionalLight3.position.set(0, 0, 100);   //位置を指定
     scene.add(directionalLight3);     // シーンに追加
       
     // helper
@@ -120,10 +119,10 @@
       cone.rotation.z += -0.03;
 
       //Lighting controller
-
-      directionalLight1.color.setHex(colorFormatter(document.getElementById("light1").value));
-      directionalLight2.color.setHex(colorFormatter(document.getElementById("light2").value));
-      directionalLight3.color.setHex(colorFormatter(document.getElementById("light3").value));
+      directionalLight1.color.setStyle(document.getElementById("light1").value);
+      directionalLight2.color.setStyle(document.getElementById("light2").value);
+      directionalLight3.color.setStyle(document.getElementById("light3").value);
+      renderer.setClearColor(new THREE.Color().setStyle(document.getElementById("bg-color").value), 1.0);
 
       // Camera Movement controller
       if (document.getElementById("camera_movement").checked) {
