@@ -24,12 +24,18 @@
       Light2: <input type="color" id="light2" value="#ff00ff"><br>
       Light3: <input type="color" id="light3" value="#00ffff"><br>
     </div>
+    <br>
+    <div>
+      ・Object Color Control<br>
+      Box: <input type="color" id="box" value="#0000ff"><br>
+      TorusKnot: <input type="color" id="torus-knot" value="#00ff00"><br>
+    </div>
+    <br>
     <div>
       Background: <input type="color" id="bg-color" value="#000000">
-      <p>
+      <div>
         <label><input type="checkbox" id="camera_movement" value="camera_movement">Camera Movement</label>
-      </p>
-    
+      </div>
       <div id="camera_coordinates"></div>
     </div>
   </div>
@@ -123,6 +129,10 @@
       directionalLight2.color.setStyle(document.getElementById("light2").value);
       directionalLight3.color.setStyle(document.getElementById("light3").value);
       renderer.setClearColor(new THREE.Color().setStyle(document.getElementById("bg-color").value), 1.0);
+
+      // Object color controller
+      box.material.color.setStyle(document.getElementById("box").value);
+      torusKnot.material.color.setStyle(document.getElementById("torus-knot").value);
 
       // Camera Movement controller
       if (document.getElementById("camera_movement").checked) {
