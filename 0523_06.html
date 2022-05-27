@@ -23,6 +23,7 @@
       Light1: <input type="color" id="light1" value="#ffff00"><br>
       Light2: <input type="color" id="light2" value="#ff00ff"><br>
       Light3: <input type="color" id="light3" value="#00ffff"><br>
+      Light4: <input type="color" id="light4" value="#ffffff"><br>
     </div>
     <br>
     <div>
@@ -65,7 +66,6 @@
 
     const controls = new THREE.OrbitControls(camera, renderDiv);
 
-    // 平行光源
     const light1 = new THREE.SpotLight(0xffff00, 4, 70, Math.PI / 4, 10, 0.01);
     light1.position.set(100, 0, 0);
     light1.castShadow = true;
@@ -80,6 +80,11 @@
     light3.position.set(0, 0, 100);
     light3.castShadow = true;
     scene.add(light3);
+
+    const light4 = new THREE.SpotLight(0xffffff, 4, 10, 30, 10, 0.01);
+    light4.position.set(0, 30, 0);
+    light4.castShadow = true;
+    scene.add(light4);
       
     // helper
     const gridHelper = new THREE.GridHelper(100, 10); // size, step
@@ -101,7 +106,11 @@
     body.position.y += 6;
 
     const wheelGeometry = new THREE.CylinderGeometry(2, 2, 0.5);
-    const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+    const wheelMaterial = new THREE.MeshPhongMaterial({
+      color: 0x00ff00,
+      specular: 0xfff823,
+      shininess: 2
+    });
     const wheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
     wheel1.position.set(4, 1.5, 18);
     wheel1.rotation.set(0, 0, Math.PI/2);
@@ -178,9 +187,11 @@
       light1.color.setStyle(document.getElementById("light1").value);
       light2.color.setStyle(document.getElementById("light2").value);
       light3.color.setStyle(document.getElementById("light3").value);
+      light4.color.setStyle(document.getElementById("light3").value);
       renderer.setClearColor(new THREE.Color().setStyle(document.getElementById("bg-color").value), 1.0);
 
       // Object color controller
+
 
       // Orbit controller
       controls.enableDamping = document.getElementById("enable-damping").checked;
