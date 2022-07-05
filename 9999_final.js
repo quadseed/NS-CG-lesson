@@ -92,10 +92,10 @@ const init = () => {
 
     const material = new THREE.PointsMaterial({
         size: 1,
-        color: 0xed12fd,
+        color: 0xffffff,
     });
     const mesh = new THREE.Points(geometry, material);
-    //scene.add(mesh);
+    scene.add(mesh);
     {/* -------------------- */}
 
 
@@ -298,6 +298,8 @@ const init = () => {
 
     const update = () => {
         requestAnimationFrame(update);
+
+        mesh.rotation.x += 0.0005;
 
         renderer.setClearColor(new THREE.Color().setStyle(document.getElementById("bg-color").value), 1.0);
 
