@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>最終課題</title>
+
+    <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+    <script src="9999_final.js"></script>
+
+</head>
+<body>
+<div>
+    <h3>コンピュータグラフィックス 最終課題</h3>
+    学籍番号: 2032067<br>
+    <h4>
+        最終課題として神社を作ってみました<br>
+        講義で扱ったスプライトや光源、グループ化などの全部盛りです
+    </h4>
+</div>
+
+<div id="renderspace">
+</div>
+
+<div id="settings">
+    <br>
+    <div>
+        Background: <input type="color" id="bg-color" value="#707070"><br>
+        <br>
+        <div>
+            <label><input type="checkbox" id="enable-damping" checked>Enable Damping</label><br>
+            <label><input type="checkbox" id="auto-rotate">Auto Rotate</label><br>
+            <label>Auto Rotate Speed <input type="range" id="auto-rotate-speed" name="volume" min="0.1" max="10" step="0.1" value="1"></label><br>
+        </div>
+        <br>
+        <div id="camera_coordinates"></div>
+        <div id="auto_rotate_speed"></div>
+    </div>
+</div>
+<script>
+
+
+</script>
+</body>
+</html>
