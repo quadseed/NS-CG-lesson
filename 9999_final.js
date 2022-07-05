@@ -14,8 +14,8 @@ const init = () => {
     scene.fog = new THREE.Fog('lightblue', 300, 1000);
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-    camera.position.set(90, 76, 400);  //位置を指定
-    camera.lookAt(0, 0, 0); //見つめる方向
+    camera.position.set(90, 76, 400);
+    camera.lookAt(0, 0, 0);
 
     const controls = new THREE.OrbitControls(camera, renderDiv);
 
@@ -62,7 +62,7 @@ const init = () => {
     {/* -------------------- */}
 
 
-    {/* ----- right cross tree ----- */}
+    {/* ----- right side tree ----- */}
     for (let i = 0; i < 12; i++) {
         const sprite = new THREE.Sprite(tree0Material);
         sprite.position.x = 100;
@@ -75,27 +75,31 @@ const init = () => {
 
 
     {/* ----- Particle Builder ----- */}
-    const SIZE = 2000;
-    const LENGTH = 1000000;
+    const size = 2000;
+    const n = 1000000;
 
     const vertices = [];
-    for (let i = 0; i < LENGTH; i++) {
-        const x = SIZE * (Math.random() - 0.5);
-        const y = SIZE * (Math.random() - 0.5);
-        const z = SIZE * (Math.random() - 0.5);
+    for (let i = 0; i < n; i++) {
+        const x = size * (Math.random() - 0.5);
+        const y = size * (Math.random() - 0.5);
+        const z = size * (Math.random() - 0.5);
 
         vertices.push(x, y, z);
     }
 
     const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute(
+        'position',
+        new THREE.Float32BufferAttribute(vertices, 3)
+    );
 
     const material = new THREE.PointsMaterial({
         size: 1,
         color: 0xffffff,
     });
-    const mesh = new THREE.Points(geometry, material);
-    scene.add(mesh);
+
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
     {/* -------------------- */}
 
 
@@ -121,7 +125,7 @@ const init = () => {
     scene.add(road);
 
 
-    {/* ----- Shinto shrine archway Builder ----- */}
+    {/* ----- Shrine archway Builder ----- */}
     const baseCylinderGeometry = new THREE.CylinderGeometry(3, 4, 50, 20);
     const baseCylinderMaterial = new THREE.MeshPhongMaterial( {color: 0xff3103} );
 
@@ -299,7 +303,7 @@ const init = () => {
     const update = () => {
         requestAnimationFrame(update);
 
-        mesh.rotation.x += 0.0005;
+        points.rotation.x += 0.0005;
 
         renderer.setClearColor(new THREE.Color().setStyle(document.getElementById("bg-color").value), 1.0);
 
