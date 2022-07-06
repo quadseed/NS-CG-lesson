@@ -120,7 +120,7 @@ const init = () => {
     const roadGeometry = new THREE.PlaneGeometry(150, 600, 1000);
     const road = new THREE.Mesh(roadGeometry, stoneMaterial);
     road.rotation.set(-Math.PI/2, 0, 0);
-    road.position.set(0, 2, -20);
+    road.position.set(0, 0.5, -20);
     road.receiveShadow = true;
     scene.add(road);
 
